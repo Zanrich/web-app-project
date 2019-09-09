@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Google Tasks API Quickstart</title>
+    <title>Isazi API Task Text-To-Speech</title>
     <meta charset="utf-8" />
   </head>
   <body>
-    <p>Google Tasks API Quickstart</p>
+    <p>Isazi API Task Text-To-Speech</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" style="display: none;">Authorize</button>
@@ -249,6 +249,8 @@
 		}
 	
 
+ 	
+ 
     function notifyMe() {
 
   // Let's check if the browser supports notifications
@@ -267,6 +269,7 @@
       				//appendPre("\n "+tasks[j][3]+"\n"+tasks[j][1] +"\t+"+tasks[j][2]);
       				var notification = new Notification(tasks[j][1] +"\t+"+tasks[j][2]);
       				tts(tasks[j][1] +"\t+"+tasks[j][2]);
+      			
 
 
       			}
@@ -280,7 +283,20 @@
     Notification.requestPermission().then(function (permission) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
-        var notification = new Notification("Hi there!");
+           for(var i = 0; i < (taskLists1.length); i++){
+       	//appendPre('\nTask List:' + taskLists1[i][0])
+		//listTasks(taskLists1[i][1]);
+			for(var j = 0; j<(tasks.length);j++){
+				if(taskLists1[i][1] == tasks[j][0]){
+      				//appendPre("\n "+tasks[j][3]+"\n"+tasks[j][1] +"\t+"+tasks[j][2]);
+      				var notification = new Notification(tasks[j][1] +"\t+"+tasks[j][2]);
+      				tts(tasks[j][1] +"\t+"+tasks[j][2]);
+      				timeFunction();
+
+
+      			}
+      		}
+		}
       }
     });
   }
@@ -288,6 +304,8 @@
   // At last, if the user has denied notifications, and you 
   // want to be respectful there is no need to bother them any more.
 }
+
+
     </script>
 
     <script async defer src="https://apis.google.com/js/api.js"
@@ -296,10 +314,9 @@
 
     </script>
 
-    <button type="button" class="say">Click to start</button>
-    <button type="button" class="say2">Click to show tasks</button>
-    <button type="button" class="say3">Click to play notification</button>
-    <button onclick="notifyMe()">Notify me!</button>
+    <button type="button" class="say">1.Click to start</button>
+    <button type="button" class="say2">2.Click to show tasks</button>
+    <button onclick="notifyMe()">3.Notify me!</button>
     <audio src="" id="audio" hidden></audio>
 
 
