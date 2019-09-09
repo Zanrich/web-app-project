@@ -18,6 +18,7 @@
    
     </script>
     <script type="text/javascript">
+    //Credit to https://developers.google.com/tasks/quickstart/python for this code
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '519684249438-lu2tlrq9pv39psrfajgv2pjh4jlb4pmm.apps.googleusercontent.com';
       var API_KEY = 'AIzaSyCn8cUH1ftUT4CMjw6UdGVAb95jddTPNgU';
@@ -55,10 +56,9 @@
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES
         }).then(function () {
-          // Listen for sign-in state changes.
+
           gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-          // Handle the initial sign-in state.
           updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
           authorizeButton.onclick = handleAuthClick;
           signoutButton.onclick = handleSignoutClick;
@@ -67,52 +67,31 @@
         });
       }
 
-      /**
-       *  Called when the signed in status changes, to update the UI
-       *  appropriately. After a sign-in, the API is called.
-       */
       function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
           listTaskLists();
-          
-          //listTasks();
+
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
         }
       }
 
-      /**
-       *  Sign in the user upon button click.
-       */
       function handleAuthClick(event) {
         gapi.auth2.getAuthInstance().signIn();
       }
 
-      /**
-       *  Sign out the user upon button click.
-       */
       function handleSignoutClick(event) {
         gapi.auth2.getAuthInstance().signOut();
       }
 
-      /**
-       * Append a pre element to the body containing the given message
-       * as its text node. Used to display the results of the API call.
-       *
-       * @param {string} message Text to be placed in pre element.
-       */
       function appendPre(message) {
         var pre = document.getElementById('content');
         var textContent = document.createTextNode(message + '\n');
         pre.appendChild(textContent);
       }
-
-      /**
-       * Print task lists.
-       */
 
        var taskS = "";
 
@@ -120,7 +99,6 @@
         gapi.client.tasks.tasklists.list({
             'maxResults': 10
         }).then(function(response) {
-          //appendPre('Task Lists: ;-(');
           var taskLists = response.result.items;
           
           if (taskLists && taskLists.length > 0) {
@@ -128,7 +106,6 @@
               var inner = [];	
               var taskList = taskLists[i];
               taskS = taskLists[0];
-              //appendPre(taskList.title +'\n');
               inner.push(taskList.title);
               inner.push(taskList.id);
               taskLists1.push(inner);
@@ -136,12 +113,11 @@
               console.log(taskLists1);
           	}
         } else {
-            //appendPre('No task lists found.');
+           
         }
       });
         
     }
-
 
     function listTasks(taskListid){
         gapi.client.tasks.tasks.list({
@@ -149,9 +125,7 @@
                   var list = response.result.items;
                   console.log(taskLists1);
                   for(var i=0;i<list.length;i++){
-                  	var inner2 = [];
-                     //appendPre(list[i].title + '\t ' + list[i].notes + '\t ' + list[i].due +'\n' );
-                     //console.log(list[i]);  
+                  	var inner2 = []; 
                      inner2.push(taskListid); 
                      inner2.push(list[i].title);
                      inner2.push(list[i].notes);
@@ -162,24 +136,15 @@
          });
 
      }
-
-
-
       $(function(){
       $('.say').on('click',function(e){
         e.preventDefault();
-        
         listTaskLists();
         for(var i = 0; i < (taskLists1.length); i++){
-        	//appendPre('Task List:' + taskLists1[i][0])
 			listTasks(taskLists1[i][1]);
 		}
-        //text = encodeURIComponent(text);
-        // list of languages is probably not loaded, wait for it
-		
 			taskLists1 = [];
 			tasks = [];
-        
       });
 
      });
@@ -200,27 +165,24 @@
 		});
 	});
 
+    //Credit to https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis/getVoices 
     function tts(text){
-  		//var text= "Hello my name is Zanrich";
 		if(window.speechSynthesis.getVoices().length == 0) {
 				window.speechSynthesis.addEventListener('voiceschanged', function() {
 					textToSpeech();
 				});
 			}
 			else {
-				// languages list available, no need to wait
+
 				textToSpeech()
 			}
 
 			function textToSpeech() {
-				// get all voices that browser offers
+
 				var available_voices = window.speechSynthesis.getVoices();
 
-				// this will hold an english voice
 				var english_voice = '';
 
-				// find voice by language locale "en-US"
-				// if not then select the first voice
 				for(var i=0; i<available_voices.length; i++) {
 					if(available_voices[i].lang === 'en-US') {
 						english_voice = available_voices[i];
@@ -230,69 +192,45 @@
 				if(english_voice === '')
 					english_voice = available_voices[0];
 
-				// new SpeechSynthesisUtterance object
 				var utter = new SpeechSynthesisUtterance();
 				utter.rate = 1;
 				utter.pitch = 0.5;
 				utter.text = text;
 				utter.voice = english_voice;
 
-				// event after text has been spoken
 				utter.onend = function() {
-					console.log('Speech has finished');
+					console.log('');
 				}
-
-				// speak
 				window.speechSynthesis.speak(utter);
-
 			}
 		}
-	
-
- 	
  
-    function notifyMe() {
-
-  // Let's check if the browser supports notifications
+ //Credit to https://developer.mozilla.org/en-US/docs/Web/API/notification
+function notifyMe1() {
   if (!("Notification" in window)) {
     alert("This browser does not support desktop notification");
   }
-
-  // Let's check whether notification permissions have already been granted
   else if (Notification.permission === "granted") {
-    // If it's okay let's create a notification
     for(var i = 0; i < (taskLists1.length); i++){
-       	//appendPre('\nTask List:' + taskLists1[i][0])
-		//listTasks(taskLists1[i][1]);
 			for(var j = 0; j<(tasks.length);j++){
 				if(taskLists1[i][1] == tasks[j][0]){
-      				//appendPre("\n "+tasks[j][3]+"\n"+tasks[j][1] +"\t+"+tasks[j][2]);
       				var notification = new Notification(tasks[j][1] +"\t+"+tasks[j][2]);
       				tts(tasks[j][1] +"\t+"+tasks[j][2]);
-      			
-
-
       			}
       		}
 		}
     
   }
 
-  // Otherwise, we need to ask the user for permission
   else if (Notification.permission !== "denied") {
     Notification.requestPermission().then(function (permission) {
-      // If the user accepts, let's create a notification
       if (permission === "granted") {
            for(var i = 0; i < (taskLists1.length); i++){
-       	//appendPre('\nTask List:' + taskLists1[i][0])
-		//listTasks(taskLists1[i][1]);
 			for(var j = 0; j<(tasks.length);j++){
 				if(taskLists1[i][1] == tasks[j][0]){
-      				//appendPre("\n "+tasks[j][3]+"\n"+tasks[j][1] +"\t+"+tasks[j][2]);
       				var notification = new Notification(tasks[j][1] +"\t+"+tasks[j][2]);
       				tts(tasks[j][1] +"\t+"+tasks[j][2]);
       				timeFunction();
-
 
       			}
       		}
@@ -301,8 +239,6 @@
     });
   }
 
-  // At last, if the user has denied notifications, and you 
-  // want to be respectful there is no need to bother them any more.
 }
 
 
@@ -316,7 +252,7 @@
 
     <button type="button" class="say">1.Click to start</button>
     <button type="button" class="say2">2.Click to show tasks</button>
-    <button onclick="notifyMe()">3.Notify me!</button>
+    <button onclick="notifyMe1()">3.Notify Me</button>
     <audio src="" id="audio" hidden></audio>
 
 
