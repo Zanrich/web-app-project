@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "isaziproject",
+  "private_key_id": "496086c689c11b25d41788dd3f4b77907d1cd173",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQD1H/JUJe3fXrVI\nyNmr6ucD+5OWmMd67RijBXbkhV7jNOFsQgbhTxADC8C6thyVkg1JaFcM/1rlZ7PX\nS8OquGr6pow24lJEtIWmjpE5UT5eBVlab1eVav0NqlsdpQqOXrO+kefvIhCA0aeN\nDwOL7+t8OiNVVcpT321qlaSGZosT8U8hBSivOUVNMJOoNvgXlFFlzQXZJU80/7lT\nAFp+efZi411/Djw3p5142zqygfFD1USPjg5XdafrByiwJ7Bi0eyP1XYl9Xkbx1CK\nEDgzh7b4YCvJJG/ojQiRllM5QQHCWQcbApGDNP51FtBha650yxLghiqVJLwfwCYH\n4iIv/GMrAgMBAAECggEALbxcNp8tFvRQ1tfC5XTazb9u9jZjYehDJIese073OWVw\negaHyho6XpceyreX9cBegkfZli8/Anaq84zLYVsver0AhG0N9IvKNB19szgZbumI\nlnsX2GUx+g7DGXDl21KILxKCN/gfJCn6HTOj8cQ+J9uhJBbxvVx+ydhJ7lnLsViD\nc9Y1o9WkeDri/g5EL2DyUpTI1RYN0sloP1LkFPRRgn7Rr+Lloh7iugXnfc3HIlOw\nzNwrpwzrpGvCHFDXGf2U5g0JQrk/Z3IkUwspN18Bj0DfQ2p3x0857xkOeCLyavoD\nbG1v7dT6CzQmKmaX7zJkIhTYwcf0k/je52KqVD/j4QKBgQD78bQBvKonozdFJiX6\nN9lA/fC/2We2O1K49bn6jFb2/mnkjWhVtkHkTsIFhuj/tYMihJTwzTyJh1M+fdYL\n2R58TNck8/Yy8zCN9numfwodPA6dK9Iotv7k1HkC6XzbAV1gcqgqsiY1eUQfCVHN\nKrw/3SnOCUWQektE6uoekCFJZQKBgQD5EiPREaR2uftqoC/t7bElmjVNv3MsbYHk\n9yCelpkbOEBwrjkr0p3QFz5GF6Pk6J6boAOSi0y94+y5Cc9ErXHO0HovtBSAAome\nCkD9LVN1bYzLPOXZSVveRIv89o0USk+tjqBRpShprmY3x+GObkUE/1IV5Yt2bf0m\nyAV19I55TwKBgQDk3uJGPaxZS7T21TvkvX1XxBhDP+0uJ1/zdA5Z48lQoTdzD157\nlpDvJPiuaqsZODwDTGu9AMSArvVZLJkYtEk0Y92BzTmXeUJfhE05p+h5PEiOUPOe\nVvbgy3+OvKrWjLvV1PKdrq51H09Z3m54Md1HKtNCPzv5jo738WtzDj2e3QKBgEwI\nM5LQ1enAYHVuLPNuydL2virbtKbtTue8YOLIijh69YDwTleIVdB+J+5xrQBl2nUb\nZbvIdkbJWywpSHJomANQNNx3FoL1Q1lRPAGNYprINGCeWHP6Juc0+Z7hDLQS8zvB\n/EKwLiQErwN8Kui11K/v2PkCN46RiOPbz37whsWVAoGAWUsMgZrMj8ZdlZ1J646z\npNS6aBT1EgO/WpR9FVIcDHk+jHXFoo8op9nJJBOX9Lu2DxKkHHGK0CPUJjDAaLjn\nVf96jN49eIiEwO5vawCNg6wjyiEMYsNwU9FgQM6E9K2/rC76jKbbxYnOPXnpMhc0\nwmgWGFy1g55MVE2u2g1XvKc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "isaziproject@isaziproject.iam.gserviceaccount.com",
+  "client_id": "113606792803196072800",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/isaziproject%40isaziproject.iam.gserviceaccount.com"
+}

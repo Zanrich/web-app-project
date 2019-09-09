@@ -1,0 +1,12 @@
+1. be sure to have python installed (v3.7)
+2. go to cmd and install the following: 
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+3. Once installed, navigate to thew contents of this folder, and run the sample file: python quickstart.py
+4. start tyhe pyhton server by:(make syre the index.html file is in the same directory as the cmd)
+python -m http.server 8000
+5. navigate to localhost:8000 
+6. log in by clicking authorize: 
+details: username: zzanrichtest@gmail.com
+	password: Chezaan@04
+7.All the tasklist and task should be displayed. 
+8.

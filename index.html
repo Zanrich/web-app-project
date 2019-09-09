@@ -13,6 +13,10 @@
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
+   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+   
+    </script>
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '519684249438-lu2tlrq9pv39psrfajgv2pjh4jlb4pmm.apps.googleusercontent.com';
@@ -30,6 +34,8 @@
 
       var authorizeButton = document.getElementById('authorize_button');
       var signoutButton = document.getElementById('signout_button');
+      var taskLists1 = [];
+      var tasks = [];
 
       /**
        *  On load, called to load the auth2 library and API client library.
@@ -70,7 +76,8 @@
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
           listTaskLists();
-          //viewTasks();
+          
+          //listTasks();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -106,37 +113,143 @@
       /**
        * Print task lists.
        */
+
+       var taskS = "";
+
       function listTaskLists() {
         gapi.client.tasks.tasklists.list({
             'maxResults': 10
         }).then(function(response) {
-          appendPre('Task Lists: ;-(');
+          //appendPre('Task Lists: ;-(');
           var taskLists = response.result.items;
-          var taskS = response
+          
           if (taskLists && taskLists.length > 0) {
             for (var i = 0; i < taskLists.length; i++) {
+              var inner = [];	
               var taskList = taskLists[i];
-              appendPre(taskList.title +'\n');
-              gapi.client.tasks.tasks.list({
-                'tasklist': taskList.id}).then(function(response){
+              taskS = taskLists[0];
+              //appendPre(taskList.title +'\n');
+              inner.push(taskList.title);
+              inner.push(taskList.id);
+              taskLists1.push(inner);
+
+              console.log(taskLists1);
+          	}
+        } else {
+            //appendPre('No task lists found.');
+        }
+      });
+        
+    }
+
+
+    function listTasks(taskListid){
+        gapi.client.tasks.tasks.list({
+        	'tasklist': taskListid}).then(function(response){
                   var list = response.result.items;
-                  console.log(list);
+                  console.log(taskLists1);
                   for(var i=0;i<list.length;i++){
-                      appendPre(list[i].title + '\t ' + list[i].notes + '\t ' + list[i].due +'\n' );
-                    }
-                  });
-            }
-          } else {
-            appendPre('No task lists found.');
-          }
-        });
-      }
+                  	var inner2 = [];
+                     //appendPre(list[i].title + '\t ' + list[i].notes + '\t ' + list[i].due +'\n' );
+                     //console.log(list[i]);  
+                     inner2.push(taskListid); 
+                     inner2.push(list[i].title);
+                     inner2.push(list[i].notes);
+                     inner2.push(list[i].due);
+                     tasks.push(inner2);
+                     console.log(tasks);
+               }
+         });
 
-     
+     }
 
 
 
+      $(function(){
+      $('.say').on('click',function(e){
+        e.preventDefault();
+        
+        listTaskLists();
+        for(var i = 0; i < (taskLists1.length); i++){
+        	//appendPre('Task List:' + taskLists1[i][0])
+			listTasks(taskLists1[i][1]);
+		}
+        //text = encodeURIComponent(text);
+        // list of languages is probably not loaded, wait for it
+		
+			taskLists1 = [];
+			tasks = [];
+        
+      });
 
+     });
+
+
+    $(function(){
+    $('.say2').on('click',function(e){
+  	e.preventDefault();
+     for(var i = 0; i < (taskLists1.length); i++){
+       	appendPre('\nTask List:' + taskLists1[i][0])
+		//listTasks(taskLists1[i][1]);
+			for(var j = 0; j<(tasks.length);j++){
+				if(taskLists1[i][1] == tasks[j][0]){
+      				appendPre("\n * "+tasks[j][1] + "\n+"+tasks[j][2]);
+      			}
+      		}
+		}
+		});
+	});
+
+    $(function(){
+    $('.say3').on('click',function(e){
+  	e.preventDefault();
+  		var text= "Hello my name is Zanrich";
+		if(window.speechSynthesis.getVoices().length == 0) {
+				window.speechSynthesis.addEventListener('voiceschanged', function() {
+					textToSpeech();
+				});
+			}
+			else {
+				// languages list available, no need to wait
+				textToSpeech()
+			}
+
+			function textToSpeech() {
+				// get all voices that browser offers
+				var available_voices = window.speechSynthesis.getVoices();
+
+				// this will hold an english voice
+				var english_voice = '';
+
+				// find voice by language locale "en-US"
+				// if not then select the first voice
+				for(var i=0; i<available_voices.length; i++) {
+					if(available_voices[i].lang === 'en-US') {
+						english_voice = available_voices[i];
+						break;
+					}
+				}
+				if(english_voice === '')
+					english_voice = available_voices[0];
+
+				// new SpeechSynthesisUtterance object
+				var utter = new SpeechSynthesisUtterance();
+				utter.rate = 1;
+				utter.pitch = 0.5;
+				utter.text = text;
+				utter.voice = english_voice;
+
+				// event after text has been spoken
+				utter.onend = function() {
+					console.log('Speech has finished');
+				}
+
+				// speak
+				window.speechSynthesis.speak(utter);
+
+			}
+		});
+	});
 
 
     </script>
@@ -144,7 +257,13 @@
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
+
     </script>
+
+    <button type="button" class="say">Click to start</button>
+    <button type="button" class="say2">Click to show tasks</button>
+    <button type="button" class="say3">Click to play notification</button>
+    <audio src="" id="audio" hidden></audio>
 
 
   </body>
